@@ -1,7 +1,5 @@
 // dart format width=60
 
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 
 void main() {
@@ -33,14 +31,34 @@ class _MyAppState extends State<MyApp> {
           backgroundColor: colors[count % colors.length],
           title: const Text("Flutter is easy!"),
         ),
-        body: Center(
-          child: Text(
-            "$count",
-            style: TextStyle(
-              fontSize: 60,
-              color: colors[count % colors.length],
-            ),
-          ),
+        body: Builder(
+          builder: (context) {
+            return Column(
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) =>
+                            About(colors: colors),
+                      ),
+                    );
+                  },
+                  child: const Text("About"),
+                ),
+                Center(
+                  child: Text(
+                    "$count",
+                    style: TextStyle(
+                      fontSize: 60,
+                      color: colors[count % colors.length],
+                    ),
+                  ),
+                ),
+              ],
+            );
+          },
         ),
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.add),
@@ -71,6 +89,31 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
+class About extends StatelessWidget {
+  final List<Color> colors;
+
+  const About({super.key, required this.colors});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("About")),
+      body: PageView.builder(
+        itemCount: 10,
+        itemBuilder: (_, index) {
+          return Container(
+            color: colors[index % colors.length],
+            padding: EdgeInsets.all(15),
+            child: Text(
+              "Page $index",
+              style: TextStyle(fontSize: 30),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
 
 // body: Row(
 //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -121,18 +164,4 @@ class _MyAppState extends State<MyApp> {
 //         child: const Text("Purple"),
 //     ),
 //     ],
-// ),
-
-// body: PageView.builder(
-//     itemCount: 10,
-//     itemBuilder: (_, index) {
-//     return Container(
-//         color: colors[index % colors.length],
-//         padding: EdgeInsets.all(15),
-//         child: Text(
-//         "Page $index",
-//         style: TextStyle(fontSize: 30),
-//         ),
-//     );
-//     },
 // ),
