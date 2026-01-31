@@ -33,12 +33,17 @@ class MyApp extends StatelessWidget {
           backgroundColor: Colors.deepPurple,
           title: const Text("Flutter is easy!"),
         ),
-        body: ListView.builder(
+        body: PageView.builder(
+          itemCount: 10,
           itemBuilder: (_, index) {
             return Container(
               color: colors[index % colors.length],
               height: screenHeight,
-              child: Text("Page $index"),
+              padding: EdgeInsets.all(15),
+              child: Text(
+                "Page $index",
+                style: TextStyle(fontSize: 30),
+              ),
             );
           },
         ),
