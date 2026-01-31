@@ -16,6 +16,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  int count = 0;
   @override
   Widget build(BuildContext context) {
     const colors = [
@@ -29,26 +30,24 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.deepPurple,
+          backgroundColor: colors[count % colors.length],
           title: const Text("Flutter is easy!"),
         ),
-        body: PageView.builder(
-          itemCount: 10,
-          itemBuilder: (_, index) {
-            return Container(
-              color: colors[index % colors.length],
-              padding: EdgeInsets.all(15),
-              child: Text(
-                "Page $index",
-                style: TextStyle(fontSize: 30),
-              ),
-            );
-          },
+        body: Center(
+          child: Text(
+            "$count",
+            style: TextStyle(
+              fontSize: 60,
+              color: colors[count % colors.length],
+            ),
+          ),
         ),
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.add),
           onPressed: () {
-            print("Pressed!");
+            setState(() {
+              count++;
+            });
           },
         ),
         bottomNavigationBar: BottomNavigationBar(
@@ -122,4 +121,18 @@ class _MyAppState extends State<MyApp> {
 //         child: const Text("Purple"),
 //     ),
 //     ],
+// ),
+
+// body: PageView.builder(
+//     itemCount: 10,
+//     itemBuilder: (_, index) {
+//     return Container(
+//         color: colors[index % colors.length],
+//         padding: EdgeInsets.all(15),
+//         child: Text(
+//         "Page $index",
+//         style: TextStyle(fontSize: 30),
+//         ),
+//     );
+//     },
 // ),
