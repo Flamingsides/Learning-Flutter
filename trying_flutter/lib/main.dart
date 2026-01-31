@@ -1,5 +1,7 @@
 // dart format width=60
 
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,38 +13,34 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var screenWidth = MediaQuery.sizeOf(context).width;
+    var screenSize = MediaQuery.sizeOf(context);
+    var screenHeight = screenSize.height;
+    var screenWidth = screenSize.width;
+    const colors = [
+      Colors.red,
+      Colors.blue,
+      Colors.purple,
+      Colors.green,
+      Colors.amber,
+    ];
+    Color randomColor() {
+      return colors[Random().nextInt(colors.length)];
+    }
 
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.green,
+          backgroundColor: Colors.deepPurple,
           title: const Text("Flutter is easy!"),
         ),
-        body: PageView(
-          scrollDirection: Axis.horizontal,
-          children: [
-            Container(
-              color: Colors.red,
-              width: screenWidth,
-              child: const Text("Red"),
-            ),
-            Container(
-              color: Colors.blue,
-              width: screenWidth,
-              child: const Text("Blue"),
-            ),
-            Container(
-              color: Colors.green,
-              width: screenWidth,
-              child: const Text("Green"),
-            ),
-            Container(
-              color: Colors.purple,
-              width: screenWidth,
-              child: const Text("Purple"),
-            ),
-          ],
+        body: ListView.builder(
+          itemBuilder: (_, index) {
+            return Container(
+              color: colors[index % colors.length],
+              height: screenHeight,
+              child: Text("Page $index"),
+            );
+          },
         ),
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.add),
