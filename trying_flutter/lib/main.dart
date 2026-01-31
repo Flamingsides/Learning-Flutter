@@ -8,14 +8,16 @@ void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
   @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
   Widget build(BuildContext context) {
-    var screenSize = MediaQuery.sizeOf(context);
-    var screenHeight = screenSize.height;
-    var screenWidth = screenSize.width;
     const colors = [
       Colors.red,
       Colors.blue,
@@ -23,9 +25,6 @@ class MyApp extends StatelessWidget {
       Colors.green,
       Colors.amber,
     ];
-    Color randomColor() {
-      return colors[Random().nextInt(colors.length)];
-    }
 
     return MaterialApp(
       home: Scaffold(
@@ -38,7 +37,6 @@ class MyApp extends StatelessWidget {
           itemBuilder: (_, index) {
             return Container(
               color: colors[index % colors.length],
-              height: screenHeight,
               padding: EdgeInsets.all(15),
               child: Text(
                 "Page $index",
