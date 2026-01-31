@@ -19,9 +19,8 @@ class MyApp extends StatelessWidget {
           backgroundColor: Colors.green,
           title: const Text("Flutter is easy!"),
         ),
-        body: ListView(
+        body: PageView(
           scrollDirection: Axis.horizontal,
-          addAutomaticKeepAlives: false,
           children: [
             Container(
               color: Colors.red,
